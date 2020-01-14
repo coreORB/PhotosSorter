@@ -1,0 +1,110 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2020-01-14 09:23+0100\n"
+"Language-Team: PL <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: main.py:33
+msgid "Source directories:"
+msgstr "Foldery źródłowe:"
+
+#: main.py:35
+msgid "Add"
+msgstr "Dodaj"
+
+#: main.py:36
+msgid "Delete"
+msgstr "Usuń"
+
+#: main.py:38
+msgid "Destination directory:"
+msgstr "Folder docelowy:"
+
+#: main.py:40
+msgid "Browse..."
+msgstr "Przeglądaj..."
+
+#: main.py:42
+msgid "Save mode"
+msgstr "Tryb zapisu"
+
+#: main.py:43
+msgid "only copy"
+msgstr "tylko kopiuj"
+
+#: main.py:44
+msgid "copy and resize"
+msgstr "kopiuj ze zmianą rozmiaru"
+
+#: main.py:45
+msgid "Bigger side size (in px)"
+msgstr "Rozmiar dłuższego boku (w px)"
+
+#: main.py:47
+msgid "JPEG compression (1-95)"
+msgstr "Stopień kompresji JPEG (1-95)"
+
+#: main.py:50
+msgid "START"
+msgstr "START"
+
+#: main.py:82
+msgid "Validation error"
+msgstr "Błąd walidacji"
+
+#: main.py:94
+msgid "File %d/%d"
+msgstr "Plik: %d/%d"
+
+#: main.py:97
+msgid "Done"
+msgstr "Zakończone"
+
+#: main.py:116
+msgid "Set source directory/directories"
+msgstr "Podaj folder(y) źródłowy"
+
+#: main.py:119
+msgid "Source directory \"%s\" does not exists or is not a directory"
+msgstr "Folder źródłowy \"%s\" nie istnieje lub nie jest katalogiem"
+
+#: main.py:121
+msgid "Set destination dir"
+msgstr "Podaj folder docelowy"
+
+#: main.py:123
+msgid "Destination directory does not exists or is not a directory"
+msgstr "Folder docelowy nie istnieje lub nie jest katalogiem"
+
+#: main.py:125
+msgid "Destination directory is the same as source directory"
+msgstr "Folder docelowy jest taki sam jak jeden z folderów źródłowyc"
+
+#: main.py:130
+msgid "Bigger size size must be an integer"
+msgstr "Rozmiar dłuższego boku musi być liczbą całkowitą"
+
+#: main.py:134 main.py:136
+msgid "JPEG compression must be an integer in range 1-95"
+msgstr "Stopień kompresji JPEG musi być liczbą całkowitą w przedziale 1-95"
+
+#: main.py:165
+msgid "Directory: %s"
+msgstr "Katalog: %s"
+
+#: main.py:181
+msgid "   \"%s\" skipped - is a directory"
+msgstr "   \"%s\" pominięty - jest katalogiem"
+
+#: main.py:189 main.py:211
+msgid "   \"%s\" skipped - does not contain creation date"
+msgstr "   \"%s\" pominięty - nie zawiera informacji o dacie wykonania"
+
+#: main.py:207
+msgid "   \"%s\" skipped - is not a compatible image file"
+msgstr "   \"%s\" pominięty - nie jest wspieranym plikiem graficznym"
+

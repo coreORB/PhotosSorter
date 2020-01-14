@@ -1,4 +1,6 @@
 import datetime
+import gettext
+import locale
 import os
 import queue
 import shutil
@@ -9,36 +11,16 @@ from unittest.test.testmock.testpatch import function
 import PySimpleGUI as sG
 from PIL import Image
 
+_ = gettext.gettext
+el = gettext.translation('main', localedir='locales',
+                         languages=['pl'] if locale.getdefaultlocale()[0][:2] == 'pl' else ['en'])
+el.install()
+_ = el.gettext
+
 debug = False
 
-gui_text_src_dir = 'Foldery źródłowe:'
-gui_text_add = 'Dodaj'
-gui_text_delete = 'Usuń'
-gui_text_dest_dir = 'Folder docelowy:'
-gui_text_browse = 'Przeglądaj...'
-gui_text_copy_mode = 'Tryb zapisu'
-gui_text_only_copy = 'tylko kopiuj'
-gui_text_resize = 'kopiuj ze zmianą rozmiaru'
-gui_text_resize_bigger_size = 'Rozmiar dłuższego boku (w px)'
-gui_text_resize_jpeg_compression = 'Stopień kompresji JPEG (1-95)'
-gui_text_start = 'START'
-gui_text_progress = 'Plik: %d/%d'
-gui_text_done = 'Zakończone'
-gui_text_progress_current_dir = 'Katalog: %s'
-gui_text_progress_warn_is_directory = '   "%s" pominięty - jest katalogiem'
-gui_text_progress_warn_not_compatible_image = '   "%s" pominięty - nie jest wspieranym plikiem graficznym'
-gui_text_progress_warn_no_timestamp = '   "%s" pominięty - nie zawiera informacji o dacie wykonania'
-gui_text_validation_title = 'Błąd walidacji'
-gui_text_validation_in_dir_no_dirs = 'Podaj folder(y) źródłowy'
-gui_text_validation_in_dir = 'Folder źródłowy "%s" nie istnieje lub nie jest katalogiem'
-gui_text_validation_out_dir_no_dir = 'Podaj folder docelowy'
-gui_text_validation_out_dir = 'Folder docelowy nie istnieje lub nie jest katalogiem'
-gui_text_validation_out_dir_in_in_dirs = 'Folder docelowy jest taki sam jak jeden z folderów źródłowych'
-gui_text_validation_jpeg_compression = 'Stopień kompresji JPEG musi być liczbą całkowitą w przedziale 1-95'
-gui_text_validation_bigger_size = 'Rozmiar dłuższego boku musi być liczbą całkowitą'
-
 dft_in_dirs = []
-dft_out_dir = 'C:\\Users\\ZaYeR\\Desktop\\temp'
+dft_out_dir = ''
 dft_resize_bigger_size = 2000
 dft_jpeg_compression = 95
 dft_skip_images_without_creation_date = False
@@ -53,24 +35,24 @@ def show_main_window():
     gui_queue = queue.Queue()
     # All the stuff inside your window.
     layout = [
-        [sG.Frame(gui_text_src_dir, [
+        [sG.Frame(_("Source directories:"), [
             [sG.Listbox(dft_in_dirs, key='lb_in_dirs', enable_events=True, size=[100, 10])],
-            [sG.FolderBrowse(gui_text_add, key='b_in_dir', enable_events=True, target='b_in_dir'),
-             sG.Button(gui_text_delete, key='b_in_dir_delete')]
+            [sG.FolderBrowse(_("Add"), key='b_in_dir', enable_events=True, target='b_in_dir'),
+             sG.Button(_("Delete"), key='b_in_dir_delete')]
         ], element_justification='right', key='f_in_dirs')],
-        [sG.Frame(gui_text_dest_dir, [
+        [sG.Frame(_("Destination directory:"), [
             [sG.InputText(key='it_out_dir', default_text=dft_out_dir, size=[102, 1])],
-            [sG.FolderBrowse(gui_text_browse, key='b_out_dir', target='it_out_dir')]
+            [sG.FolderBrowse(_("Browse..."), key='b_out_dir', target='it_out_dir')]
         ], element_justification='right', key='f_out_dir')],
-        [sG.Frame(gui_text_copy_mode, [
-            [sG.Radio(gui_text_only_copy, 'resize_or_copy', default=True, key='r_only_copy')],
-            [sG.Radio(gui_text_resize, 'resize_or_copy', default=False, key='r_resize')],
-            [sG.Text('    '), sG.Text(gui_text_resize_bigger_size), sG.InputText(dft_resize_bigger_size, size=[5, 1],
-                                                                                 key='it_resize_bigger_length')],
-            [sG.Text('    '), sG.Text(gui_text_resize_jpeg_compression), sG.InputText(dft_jpeg_compression, size=[3, 1],
-                                                                                      key='it_resize_jpeg_compression')]
+        [sG.Frame(_("Save mode"), [
+            [sG.Radio(_("only copy"), 'resize_or_copy', default=True, key='r_only_copy')],
+            [sG.Radio(_("copy and resize"), 'resize_or_copy', default=False, key='r_resize')],
+            [sG.Text('    '), sG.Text(_("Bigger side size (in px)")), sG.InputText(dft_resize_bigger_size, size=[5, 1],
+                                                                                   key='it_resize_bigger_length')],
+            [sG.Text('    '), sG.Text(_("JPEG compression (1-95)")), sG.InputText(dft_jpeg_compression, size=[3, 1],
+                                                                                  key='it_resize_jpeg_compression')]
         ], key='f_copy_mode')],
-        [sG.Submit(gui_text_start, key='b_start')],
+        [sG.Submit(_("START"), key='b_start')],
         [sG.ProgressBar(100, visible=False, key='pb_progress', size=[60, 15])],
         [sG.Text('postep               ', key='t_progress', visible=False)],
         [sG.Output(size=[100, 15], visible=False, key='o_output')],
@@ -102,7 +84,7 @@ def show_main_window():
                                        int(values['it_resize_jpeg_compression']),
                                        gui_queue), daemon=True).start()
             else:
-                sG.Popup(error_message, title=gui_text_validation_title)
+                sG.Popup(error_message, title=_("Validation error"))
         elif event is 'b_finished':
             window.close()
             show_main_window()
@@ -114,10 +96,10 @@ def show_main_window():
         if queue_message:
             if queue_message[0] == 'working':
                 debug_print('progress ' + str(queue_message[1]) + '/' + str(queue_message[2]))
-                window.FindElement('t_progress').Update(gui_text_progress % (queue_message[1], queue_message[2]))
+                window.FindElement('t_progress').Update(_("File %d/%d") % (queue_message[1], queue_message[2]))
                 window.FindElement('pb_progress').UpdateBar(queue_message[1], queue_message[2])
             elif queue_message[0] == 'done':
-                window.FindElement('t_progress').Update(gui_text_done)
+                window.FindElement('t_progress').Update(_("Done"))
                 window.FindElement('b_finished').Update(visible=True)
 
 
@@ -136,27 +118,27 @@ def show_progress(window):
 def validate_data(src_dir_paths: List[str], dest_dir_path: str, resize_images: bool, resize_bigger_length: int,
                   resize_jpeg_compression: int) -> (bool, str):
     if len(src_dir_paths) == 0:
-        return False, gui_text_validation_in_dir_no_dirs
+        return False, _('Set source directory/directories')
     for d in src_dir_paths:
         if not os.path.exists(d) or os.path.isfile(d):
-            return False, gui_text_validation_in_dir % d
+            return False, _('Source directory "%s" does not exists or is not a directory') % d
     if dest_dir_path == '':
-        return False, gui_text_validation_out_dir_no_dir
+        return False, _('Set destination dir')
     if not os.path.exists(dest_dir_path) or os.path.isfile(dest_dir_path):
-        return False, gui_text_validation_out_dir
+        return False, _('Destination directory does not exists or is not a directory')
     if dest_dir_path in src_dir_paths:
-        return False, gui_text_validation_out_dir_in_in_dirs
+        return False, _('Destination directory is the same as source directory')
     if resize_images:
         try:
             int(resize_bigger_length)
         except ValueError:
-            return False, gui_text_validation_bigger_size
+            return False, _('Bigger size size must be an integer')
         try:
             value = int(resize_jpeg_compression)
             if value < 1 or value > 95:
-                return False, gui_text_validation_jpeg_compression
+                return False, _('JPEG compression must be an integer in range 1-95')
         except ValueError:
-            return False, gui_text_validation_jpeg_compression
+            return False, _('JPEG compression must be an integer in range 1-95')
 
     return True, None
 
@@ -185,7 +167,7 @@ def copy_and_rename_dirs_images(src_dir_paths: List[str], dest_dir_path: str, on
         on_progress_updated(current_file, all_files_count)
 
     for src_dir_path in src_dir_paths:
-        print(gui_text_progress_current_dir % src_dir_path)
+        print(_('Directory: %s') % src_dir_path)
         copy_and_rename_dir_images(src_dir_path, dest_dir_path, on_update, resize_images, resize_bigger_length,
                                    resize_jpeg_compression)
 
@@ -201,7 +183,7 @@ def copy_and_rename_dir_images(src_dir_path: str, dest_dir_path: str, on_progres
         src_file_name = src_file_list[i]
         src_file_path = os.path.join(src_dir_path, src_file_name)
         if os.path.isdir(src_file_path):
-            print(gui_text_progress_warn_is_directory % src_file_name)
+            print(_('   "%s" skipped - is a directory') % src_file_name)
             continue
         try:
             src_img = Image.open(src_file_path)
@@ -209,7 +191,7 @@ def copy_and_rename_dir_images(src_dir_path: str, dest_dir_path: str, on_progres
             # noinspection PyProtectedMember
             exif_tags = src_img._getexif()
             if exif_tags is None:
-                print(gui_text_progress_warn_no_timestamp % src_file_name)
+                print(_('   "%s" skipped - does not contain creation date') % src_file_name)
                 continue
             timestamp = datetime.datetime.strptime(exif_tags[36867], '%Y:%m:%d %H:%M:%S').timestamp()
             dest_file_path = get_free_filename_for_timestamp(dest_dir_path, timestamp)
@@ -227,11 +209,11 @@ def copy_and_rename_dir_images(src_dir_path: str, dest_dir_path: str, on_progres
                 shutil.copy2(src_file_path, dest_file_path)
         except IOError as e:
             if str(e).startswith('cannot identify image file'):
-                print(gui_text_progress_warn_not_compatible_image % src_file_name)
+                print(_('   "%s" skipped - is not a compatible image file') % src_file_name)
             else:
                 print(e)
         except KeyError:
-            print(gui_text_progress_warn_no_timestamp % src_file_name)
+            print(_('   "%s" skipped - does not contain creation date') % src_file_name)
 
 
 def get_free_filename_for_timestamp(dest_dir_path: str, timestamp, i: int = 1) -> str:

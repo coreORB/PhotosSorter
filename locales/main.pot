@@ -1,0 +1,110 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2020-01-14 09:23+0100\n"
+"Language-Team: EN <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: main.py:33
+msgid "Source directories:"
+msgstr ""
+
+#: main.py:35
+msgid "Add"
+msgstr ""
+
+#: main.py:36
+msgid "Delete"
+msgstr ""
+
+#: main.py:38
+msgid "Destination directory:"
+msgstr ""
+
+#: main.py:40
+msgid "Browse..."
+msgstr ""
+
+#: main.py:42
+msgid "Save mode"
+msgstr ""
+
+#: main.py:43
+msgid "only copy"
+msgstr ""
+
+#: main.py:44
+msgid "copy and resize"
+msgstr ""
+
+#: main.py:45
+msgid "Bigger side size (in px)"
+msgstr ""
+
+#: main.py:47
+msgid "JPEG compression (1-95)"
+msgstr ""
+
+#: main.py:50
+msgid "START"
+msgstr ""
+
+#: main.py:82
+msgid "Validation error"
+msgstr ""
+
+#: main.py:94
+msgid "File %d/%d"
+msgstr ""
+
+#: main.py:97
+msgid "Done"
+msgstr ""
+
+#: main.py:116
+msgid "Set source directory/directories"
+msgstr ""
+
+#: main.py:119
+msgid "Source directory \"%s\" does not exists or is not a directory"
+msgstr ""
+
+#: main.py:121
+msgid "Set destination dir"
+msgstr ""
+
+#: main.py:123
+msgid "Destination directory does not exists or is not a directory"
+msgstr ""
+
+#: main.py:125
+msgid "Destination directory is the same as source directory"
+msgstr ""
+
+#: main.py:130
+msgid "Bigger size size must be an integer"
+msgstr ""
+
+#: main.py:134 main.py:136
+msgid "JPEG compression must be an integer in range 1-95"
+msgstr ""
+
+#: main.py:165
+msgid "Directory: %s"
+msgstr ""
+
+#: main.py:181
+msgid "   \"%s\" skipped - is a directory"
+msgstr ""
+
+#: main.py:189 main.py:211
+msgid "   \"%s\" skipped - does not contain creation date"
+msgstr ""
+
+#: main.py:207
+msgid "   \"%s\" skipped - is not a compatible image file"
+msgstr ""
+
