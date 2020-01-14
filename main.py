@@ -38,9 +38,10 @@ gui_text_validation_jpeg_compression = 'Stopień kompresji JPEG musi być liczb�
 gui_text_validation_bigger_size = 'Rozmiar dłuższego boku musi być liczbą całkowitą'
 
 dft_in_dirs = []
-dft_out_dir = ''
-dft_resize_bigger_size = 4000
+dft_out_dir = 'C:\\Users\\ZaYeR\\Desktop\\temp'
+dft_resize_bigger_size = 2000
 dft_jpeg_compression = 95
+dft_skip_images_without_creation_date = False
 
 
 def main():
@@ -69,10 +70,11 @@ def show_main_window():
             [sG.Text('    '), sG.Text(gui_text_resize_jpeg_compression), sG.InputText(dft_jpeg_compression, size=[3, 1],
                                                                                       key='it_resize_jpeg_compression')]
         ], key='f_copy_mode')],
-        [sG.Submit(gui_text_start, key='b_ok')],
+        [sG.Submit(gui_text_start, key='b_start')],
         [sG.ProgressBar(100, visible=False, key='pb_progress', size=[60, 15])],
         [sG.Text('postep               ', key='t_progress', visible=False)],
-        [sG.Output(size=[100, 15], visible=False, key='o_output')]
+        [sG.Output(size=[100, 15], visible=False, key='o_output')],
+        [sG.Button('OK', visible=False, key='b_finished')]
     ]
     window = sG.Window('Photos Timestamp Sorter', layout, element_justification='center', resizable=True)
     while True:
@@ -88,7 +90,7 @@ def show_main_window():
         elif event is 'b_in_dir_delete':
             in_dirs.remove(values['lb_in_dirs'][0])
             window.FindElement('lb_in_dirs').Update(in_dirs)
-        elif event is 'b_ok':
+        elif event is 'b_start':
             success, error_message = validate_data(in_dirs, values['it_out_dir'], values['r_resize'],
                                                    values['it_resize_bigger_length'],
                                                    values['it_resize_jpeg_compression'])
@@ -101,6 +103,10 @@ def show_main_window():
                                        gui_queue), daemon=True).start()
             else:
                 sG.Popup(error_message, title=gui_text_validation_title)
+        elif event is 'b_finished':
+            window.close()
+            show_main_window()
+
         try:
             queue_message = gui_queue.get_nowait()
         except queue.Empty:
@@ -112,6 +118,7 @@ def show_main_window():
                 window.FindElement('pb_progress').UpdateBar(queue_message[1], queue_message[2])
             elif queue_message[0] == 'done':
                 window.FindElement('t_progress').Update(gui_text_done)
+                window.FindElement('b_finished').Update(visible=True)
 
 
 def show_progress(window):
@@ -119,10 +126,11 @@ def show_progress(window):
     window.FindElement('f_in_dirs').hide_row()
     window.FindElement('f_out_dir').hide_row()
     window.FindElement('f_copy_mode').hide_row()
-    window.FindElement('b_ok').hide_row()
+    window.FindElement('b_start').hide_row()
     window.FindElement('t_progress').Update(visible=True)
     window.FindElement('pb_progress').Update(visible=True)
     window.FindElement('o_output').Update(visible=True)
+    window.FindElement('b_finished').Update(visible=False)
 
 
 def validate_data(src_dir_paths: List[str], dest_dir_path: str, resize_images: bool, resize_bigger_length: int,
