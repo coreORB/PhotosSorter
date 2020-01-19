@@ -1,110 +1,117 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2020-01-14 09:23+0100\n"
-"Language-Team: EN <LL@li.org>\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2020-01-19 18:06+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: main.py:33
-msgid "Source directories:"
+#: main.py:34
+msgid "Source directory:"
 msgstr ""
 
-#: main.py:35
-msgid "Add"
-msgstr ""
-
-#: main.py:36
-msgid "Delete"
-msgstr ""
-
-#: main.py:38
-msgid "Destination directory:"
-msgstr ""
-
-#: main.py:40
+#: main.py:36 main.py:40
 msgid "Browse..."
 msgstr ""
 
+#: main.py:38
+msgid "Destination directory (if empty source directory will be used):"
+msgstr ""
+
 #: main.py:42
-msgid "Save mode"
+msgid "Options"
 msgstr ""
 
 #: main.py:43
-msgid "only copy"
-msgstr ""
-
-#: main.py:44
-msgid "copy and resize"
+msgid "Move files instead of copying (if source and destination directories are the same files always will be moved)"
 msgstr ""
 
 #: main.py:45
-msgid "Bigger side size (in px)"
+msgid "Rename images to creation date (if possible)"
 msgstr ""
 
 #: main.py:47
-msgid "JPEG compression (1-95)"
+msgid "Resize images"
+msgstr ""
+
+#: main.py:48
+msgid "Bigger side size (in px)"
 msgstr ""
 
 #: main.py:50
+msgid "JPEG compression (1-95)"
+msgstr ""
+
+#: main.py:53
 msgid "START"
 msgstr ""
 
-#: main.py:82
+#: main.py:81
 msgid "Validation error"
 msgstr ""
 
-#: main.py:94
+#: main.py:93
 msgid "File %d/%d"
 msgstr ""
 
-#: main.py:97
+#: main.py:98
 msgid "Done"
 msgstr ""
 
-#: main.py:116
-msgid "Set source directory/directories"
+#: main.py:105
+msgid "\"{filename}\" subdirectory skipped"
 msgstr ""
 
-#: main.py:119
-msgid "Source directory \"%s\" does not exists or is not a directory"
+#: main.py:107
+msgid "\"{filename}\" does not contain creation date - won't be renamed"
 msgstr ""
 
-#: main.py:121
+#: main.py:109
+msgid "\"{filename}\" processing image failed: {text}"
+msgstr ""
+
+#: main.py:111
+msgid "\"{filename}\" destination file already exists"
+msgstr ""
+
+#: main.py:113
+msgid "\"{filename}\" moving file failed: {text}"
+msgstr ""
+
+#: main.py:115
+msgid "\"{filename}\" seems to be panoramic image - it won't be resized"
+msgstr ""
+
+#: main.py:137
+msgid "Set source directory"
+msgstr ""
+
+#: main.py:139
+msgid "Source directory does not exists or is not a directory"
+msgstr ""
+
+#: main.py:141
 msgid "Set destination dir"
 msgstr ""
 
-#: main.py:123
+#: main.py:143
 msgid "Destination directory does not exists or is not a directory"
 msgstr ""
 
-#: main.py:125
-msgid "Destination directory is the same as source directory"
-msgstr ""
-
-#: main.py:130
+#: main.py:148
 msgid "Bigger size size must be an integer"
 msgstr ""
 
-#: main.py:134 main.py:136
+#: main.py:152 main.py:154
 msgid "JPEG compression must be an integer in range 1-95"
-msgstr ""
-
-#: main.py:165
-msgid "Directory: %s"
-msgstr ""
-
-#: main.py:181
-msgid "   \"%s\" skipped - is a directory"
-msgstr ""
-
-#: main.py:189 main.py:211
-msgid "   \"%s\" skipped - does not contain creation date"
-msgstr ""
-
-#: main.py:207
-msgid "   \"%s\" skipped - is not a compatible image file"
 msgstr ""
 

@@ -2,12 +2,22 @@
 python script
 
 ## Building exe:
-Install pyinstaller: 
+Build executable to zip: 
 ```
 $ npm install pyinstaller
+$ build_zip.py 1_0
 ```
 
-build exe in single file: 
+## Translations:
+Generate languages template:
 ```
-$ pyinstaller --onefile --noconsole main.py
+C:\Users\<user>\AppData\Local\Programs\Python\Python37-32\Tools\i18n\pygettext.py -d main -o locales/main.pot main.py
+```
+
+Build translations:
+```
+cd locales\en\LC_MESSAGES
+C:\Users\<user>\AppData\Local\Programs\Python\Python37-32\Tools\i18n\msgfmt.py -o main.mo main
+cd locales\pl\LC_MESSAGES
+C:\Users\<user>\AppData\Local\Programs\Python\Python37-32\Tools\i18n\msgfmt.py -o main.mo main
 ```
